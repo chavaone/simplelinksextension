@@ -1,0 +1,21 @@
+{
+  "manifest_version": 2,
+
+  "name": "Url List Extension",
+  "description": "This extension is a simple list of links.",
+  "version": "1.0",
+
+  "browser_action": {
+    "default_icon": "icon.png"
+  },
+
+  "permissions": [
+    "storage",
+    "tabs"
+  ],
+
+  "background": {
+        "scripts": ["link.js", "extension.js"],
+        "persistent": true
+    }
+}
