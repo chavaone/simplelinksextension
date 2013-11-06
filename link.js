@@ -19,8 +19,8 @@
 var LinkModel = function () {}
 
 LinkModel.prototype = {
-	getLink: function (url, callback) {
-        this.getLinks(function (data) {
+	getLink: function(url, callback) {
+        this.getLinks(function(data) {
             var dato = {};
             for (ind in data) {
                 dato = data[ind] || {};
@@ -32,14 +32,14 @@ LinkModel.prototype = {
             callback (undefined);
         });
 	},
-	getLinks: function (callback) {
-        chrome.storage.local.get("links", function (data) {
+	getLinks: function(callback) {
+        chrome.storage.local.get("links", function(data) {
             callback(data.links);
         });
 	},
-	saveLink: function (new_link, callback) {
+	saveLink: function(new_link, callback) {
         var self = this;
-        this.getLinks(function (data) {
+        this.getLinks(function(data) {
             var new_data = data || [],
                 url = new_link.url || "";
 
@@ -53,5 +53,27 @@ LinkModel.prototype = {
             });
 
         });
-	}
+	},
+    delLink: function(url, callback) {
+        var self = this;
+        this.getLinks(function(links) {
+            var ind     = 0,
+                the_ind = -1,
+                my_url  = "";
+
+            for (ind in links)
+            {
+                my_url = links[ind].url || "";
+                if (my_url === url) {
+                    the_ind = ind;
+                    break;
+                }
+            }
+
+            if (the_ind !== -1) {
+                links.splice(the_ind, 1);
+                chrome.storage.local.set({"links": links}, callback);
+            }
+        });
+    }
 };
