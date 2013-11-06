@@ -19,16 +19,32 @@
 var EXT = {};
 
 EXT.init_function = function (tab) {
-	chrome.browserAction.setIcon ({path:"icon.png"}, function () {});
+    var url       = tab.url;
+        linkmodel = new LinkModel ();
+
+    linkmodel.getLink (url, function (data) {
+        if (data) {
+            chrome.browserAction.setIcon ({path:"icon2.png"}, function () {});
+        } else {
+            chrome.browserAction.setIcon ({path:"icon.png"}, function () {});
+        }
+    });
 }
 
 EXT.on_click_function = function (tab) {
-	alert (tab.title + " - " + tab.url);
-	chrome.browserAction.setIcon ({path:"icon2.png"}, function () {});
+    var title     = tab.title,
+        url       = tab.url;
+        linkmodel = new LinkModel ();
+
+    linkmodel.saveLink ({title:title, url:url}, function () {
+        chrome.browserAction.setIcon ({path:"icon2.png"}, function () {});
+    });
+}
+
 }
 
 chrome.browserAction.onClicked.addListener(EXT.on_click_function);
 
 chrome.tabs.onActivated.addListener (function (info) {
-	 chrome.tabs.get(info.tabId, EXT.init_function);
+     chrome.tabs.get(info.tabId, EXT.init_function);
 });
