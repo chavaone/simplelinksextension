@@ -41,10 +41,32 @@ EXT.on_click_function = function (tab) {
     });
 }
 
+EXT.show_links = function () {
+    if (EXT.links_tab_id) {
+        chrome.tabs.update(EXT.links_tab_id, {selected: true});
+    } else {
+        chrome.tabs.create({url:"links.html",pinned:true}, function (tab) {
+            EXT.links_tab_id = tab.id;
+        });
+    }
 }
+
+chrome.tabs.onRemoved.addListener(function (tab_id) {
+    if (tab_id === EXT.links_tab_id)
+        delete EXT.links_tab_id;
+});
 
 chrome.browserAction.onClicked.addListener(EXT.on_click_function);
 
 chrome.tabs.onActivated.addListener (function (info) {
      chrome.tabs.get(info.tabId, EXT.init_function);
 });
+
+chrome.contextMenus.create ({
+    title:"View stored links.",
+    type:"normal",
+    onclick: EXT.show_links,
+    contexts: ["all"]
+    }, function () {
+        console.log ("Created show links context menu");
+    });

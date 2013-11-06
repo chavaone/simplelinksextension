@@ -1,0 +1,16 @@
+<html>
+<head>
+    <title>Stored Links Page</title>
+</head>
+<body>
+    <ul id="links">
+    </ul>
+    <script type="text/javascript">
+        window.onLoad (function (){
+            chrome.runtime.onMessage(function (message){
+                window.getElementById("links").innerHTML = message;
+            });
+        });
+    </script>
+</body>
+</html>
