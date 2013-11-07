@@ -24,9 +24,9 @@ EXT.init_function = function (tab) {
 
     linkmodel.getLink (url, function (data) {
         if (data) {
-            chrome.browserAction.setIcon ({path:"icon2.png"}, function () {});
+            chrome.browserAction.setIcon ({path:"img/icon2.png"}, function () {});
         } else {
-            chrome.browserAction.setIcon ({path:"icon.png"}, function () {});
+            chrome.browserAction.setIcon ({path:"img/icon.png"}, function () {});
         }
     });
 }
@@ -36,7 +36,7 @@ EXT.on_click_function = function (tab) {
         url       = tab.url,
         linkmodel = new LinkModel ();
     linkmodel.saveLink ({title:title, url:url, date: new Date().getTime()}, function () {
-        chrome.browserAction.setIcon ({path:"icon2.png"}, function () {});
+        chrome.browserAction.setIcon ({path:"img/icon2.png"}, function () {});
         EXT.update_links ();
     });
 }
@@ -46,7 +46,7 @@ EXT.show_links = function () {
         chrome.tabs.update(EXT.links_tab_id, {selected: true});
         EXT.update_links ();
     } else {
-        chrome.tabs.create({url:"links.html",pinned:true}, function (tab) {
+        chrome.tabs.create({url:"links_page.html",pinned:true}, function (tab) {
             EXT.links_tab_id = tab.id;
             EXT.update_links ();
         });
