@@ -1,0 +1,48 @@
+
+
+body{
+background-image: -webkit-gradient(
+	linear,
+	left top,
+	left bottom,
+	color-stop(0, rgb(196, 201, 65)),
+	color-stop(1, #FFFFA3)
+);
+background-image: -o-linear-gradient(bottom, rgb(196, 201, 65), #FFFFA3 100%);
+background-image: -moz-linear-gradient(bottom, rgb(196, 201, 65), #FFFFA3 100%);
+background-image: -webkit-linear-gradient(bottom, rgb(196, 201, 65), #FFFFA3 100%);
+background-image: -ms-linear-gradient(bottom, rgb(196, 201, 65), #FFFFA3 100%);
+background-image: linear-gradient(to bottom, rgb(196, 201, 65) 0%, #FFFFA3 100%);
+}
+
+h1,p,a,li,span {
+	font-weight: bold;
+	font-size: 14.5pt;
+}
+
+a:visited {
+	color: blue;
+}
+
+h1 {
+	font-size: 30pt;
+	text-decoration: underline;
+}
+
+.date{
+	font-size: 7pt;
+	font-weight: normal;
+	font-style: italic;
+}
+
+ul{
+	list-style-type: diamond;
+}
+
+#links {
+	padding-left: 2em;
+}
+
+li {
+	padding-bottom:0.6em;
+}
