@@ -3,14 +3,10 @@
     <title>Stored Links Page</title>
 </head>
 <body>
-    <ul id="links">
-    </ul>
-    <script type="text/javascript">
-        window.onLoad (function (){
-            chrome.runtime.onMessage(function (message){
-                window.getElementById("links").innerHTML = message;
-            });
-        });
-    </script>
+    <div id="links">
+    </div>
+    <script src="handlebars.js"></script>
+    <script src="list_template.js"></script>
+    <script src="links_page.js"></script>
 </body>
 </html>

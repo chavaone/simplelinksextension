@@ -1,6 +1,6 @@
 /*  Simple Chromium extension to store links really fast.
 
-	Copyright (C) 2013  Marcos Chavarría Teijeiro <chavarria1991@gmail.com>
+       Copyright (C) 2013  Marcos Chavarría Teijeiro <chavarria1991@gmail.com>
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -38,15 +38,28 @@ EXT.on_click_function = function (tab) {
 
     linkmodel.saveLink ({title:title, url:url}, function () {
         chrome.browserAction.setIcon ({path:"icon2.png"}, function () {});
+        EXT.update_links ();
     });
 }
 
 EXT.show_links = function () {
     if (EXT.links_tab_id) {
         chrome.tabs.update(EXT.links_tab_id, {selected: true});
+        EXT.update_links ();
     } else {
         chrome.tabs.create({url:"links.html",pinned:true}, function (tab) {
             EXT.links_tab_id = tab.id;
+            EXT.update_links ();
+        });
+    }
+}
+
+EXT.update_links = function () {
+    var linkmodel = new LinkModel ();
+
+    if (EXT.links_tab_id) {
+        linkmodel.getLinks(function (data) {
+            chrome.tabs.sendMessage (EXT.links_tab_id, {links: data});
         });
     }
 }
