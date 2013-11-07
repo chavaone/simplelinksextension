@@ -33,10 +33,9 @@ EXT.init_function = function (tab) {
 
 EXT.on_click_function = function (tab) {
     var title     = tab.title,
-        url       = tab.url;
+        url       = tab.url,
         linkmodel = new LinkModel ();
-
-    linkmodel.saveLink ({title:title, url:url}, function () {
+    linkmodel.saveLink ({title:title, url:url, date: new Date().getTime()}, function () {
         chrome.browserAction.setIcon ({path:"icon2.png"}, function () {});
         EXT.update_links ();
     });
