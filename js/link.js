@@ -18,12 +18,15 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-var LinkModel = function () {}
+"use strict";
+
+var LinkModel = function () {};
 
 LinkModel.prototype = {
-	getLink: function(url, callback) {
+    getLink: function(url, callback) {
         this.getLinks(function(data) {
-            var dato = {};
+            var dato = {},
+                ind = 0;
             for (ind in data) {
                 dato = data[ind] || {};
                 if (dato.url === url){
@@ -33,13 +36,13 @@ LinkModel.prototype = {
             }
             callback (undefined);
         });
-	},
-	getLinks: function(callback) {
+    },
+    getLinks: function(callback) {
         chrome.storage.local.get("links", function(data) {
             callback(data.links);
         });
-	},
-	saveLink: function(new_link, callback) {
+    },
+    saveLink: function(new_link, callback) {
         var self = this;
         this.getLinks(function(data) {
             var new_data = data || [],
@@ -47,17 +50,31 @@ LinkModel.prototype = {
 
             if (url === "") return;
 
-            self.getLink (url, function (data) {
-                if (! data) {
-                    new_data.push(new_link);
-                    chrome.storage.local.set({"links": new_data}, callback);
+            self.getLink (url, function (link) {
+                var ind = 0,
+                    the_ind = -1;
+
+                if (link) {
+                    for (ind in new_data)
+                    {
+                        if (new_data[ind].url === link.url) {
+                            the_ind = ind;
+                            break;
+                        }
+                    }
+
+                    if (the_ind !== -1) {
+                        new_data.splice(the_ind, 1);
+                    }
                 }
+
+                new_data.push(new_link);
+                chrome.storage.local.set({"links": new_data}, callback);
             });
 
         });
-	},
+    },
     delLink: function(url, callback) {
-        var self = this;
         this.getLinks(function(links) {
             var ind     = 0,
                 the_ind = -1,

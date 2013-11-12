@@ -1,4 +1,4 @@
-/*global Handlebars, moment, chrome */
+/*jslint indent: 4 */
 /*  Simple Chromium extension to store links really fast.
 
        Copyright (C) 2013  Marcos Chavarría Teijeiro <chavarria1991@gmail.com>
@@ -16,22 +16,14 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+var metas = document.getElementsByTagName("meta"),
+    i = 0,
+    result = "";
 
-"use strict";
-Handlebars.registerHelper("formatDate", function(date) {
-    var date_obj = new Date (date || 0);
-    if (! date) {
-        return "";
-    } else if (new Date().toDateString() === date_obj.toDateString()) {
-        return moment(date_obj).format("hh:mm a");
-    } else {
-        moment.lang("gl");
-        return moment(date_obj).format("DD [de] MMMM [as] hh:mm a");
-  }
-});
-
-chrome.runtime.onMessage.addListener(function (message) {
-    var context = message || {links:[]};
-    context.links = context.links.reverse();
-    document.getElementById("links").innerHTML = Handlebars.templates.list_template(context);
-});
+for (i = 0; i < metas.length; i++) {
+    if (metas[i].getAttribute("name") === "description") {
+        result = metas[i].getAttribute("content");
+        break;
+    }
+}
+result;
