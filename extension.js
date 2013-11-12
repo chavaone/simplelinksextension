@@ -1,3 +1,5 @@
+/*jslint indent: 4 */
+/*global chrome, LinkModel, console */
 /*  Simple Chromium extension to store links really fast.
 
        Copyright (C) 2013  Marcos Chavarría Teijeiro <chavarria1991@gmail.com>

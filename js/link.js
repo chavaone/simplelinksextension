@@ -1,6 +1,8 @@
+/*jslint indent: 4 */
+/*global chrome*/
 /*  Simple Chromium extension to store links really fast.
 
-	Copyright (C) 2013  Marcos Chavarría Teijeiro <chavarria1991@gmail.com>
+    Copyright (C) 2013  Marcos Chavarría Teijeiro <chavarria1991@gmail.com>
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
