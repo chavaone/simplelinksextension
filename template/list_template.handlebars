@@ -1,4 +1,16 @@
 <ul>
 {{#each links}}
-    <li class="url_item"><a href="{{this.url}}" target="_blank">{{this.title}}</a> <span class="date">({{formatDate this.date}})</span> </li>{{/each}}
+    <li class="url_item">
+		<a href="{{this.url}}" target="_blank">{{this.title}}</a>
+		<span class="date">({{formatDate this.date}})</span>
+        <a href="https://twitter.com/share?text=Bótalle unha ollada a {{this.title}} en {{this.url}}" class="icon-twitter share-link" target="_blank"></a>
+        <ul>
+        	{{#each this.keywords}}
+        	<li class="keyword">
+        		{{this}}
+        	</li>
+        	{{/each}}
+        </ul>
+        <p class="description">{{this.description}}</p>
+    </li>{{/each}}
 </ul>

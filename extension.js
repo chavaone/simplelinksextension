@@ -28,9 +28,9 @@ EXT.init_function = function (tab) {
 
     linkmodel.getLink(url, function (data) {
         if (data) {
-            chrome.browserAction.setIcon({path: "img/icon2.png"}, function () {});
+            chrome.browserAction.setIcon({path: "img/bookmark.png"}, function () {});
         } else {
-            chrome.browserAction.setIcon({path: "img/icon.png"}, function () {});
+            chrome.browserAction.setIcon({path: "img/bookmark_empty.png"}, function () {});
         }
     });
 };
@@ -79,7 +79,7 @@ EXT.on_click_function = function(tab) {
 
         if (link) {
             linkmodel.delLink(tab.url, function() {
-                chrome.browserAction.setIcon ({path: "img/icon.png"}, function () {});
+                chrome.browserAction.setIcon ({path: "img/bookmark_empty.png"}, function () {});
             });
         } else {
             linkmodel.saveLink (
@@ -87,7 +87,7 @@ EXT.on_click_function = function(tab) {
                     url: tab.url,
                     date: new Date().getTime()
                 }, function () {
-                    chrome.browserAction.setIcon ({path: "img/icon2.png"}, function () {});
+                    chrome.browserAction.setIcon ({path: "img/bookmark.png"}, function () {});
                     EXT.get_keywords(tab);
                     EXT.get_description(tab);
                     EXT.refresh_links ();
